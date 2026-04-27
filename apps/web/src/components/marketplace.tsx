@@ -72,41 +72,41 @@ export function CategoryGrid({ layout = 'home' }: { layout?: 'home' | 'dense' })
 }
 
 const collageShots = [
-	{ src: '/collage/img-04.jpg', label: 'Plumbing', tint: '#088395', tone: 'core' },
-	{ src: '/collage/img-05.jpg', label: 'Cleaning', tint: '#05BFDB', tone: 'warm' },
-	{ src: '/collage/img-25.jpg', label: 'Gardening', tint: '#00C9A7', tone: 'fresh' },
-	{ src: '/collage/img-17.jpg', label: 'Hairdressing', tint: '#FF8066', tone: 'warm' },
-	{ src: '/collage/img-26.jpg', label: 'Driving', tint: '#0081CF', tone: 'core' },
-	{ src: '/collage/img-22.jpg', label: 'Photography', tint: '#2F4B7C', tone: 'deep' },
-	{ src: '/collage/img-09.jpg', label: 'Laundry', tint: '#45B7D1', tone: 'fresh' },
-	{ src: '/collage/img-14.jpg', label: 'Repairs', tint: '#FFB347', tone: 'warm' },
-	{ src: '/collage/img-18.jpg', label: 'Painting', tint: '#7D4E9E', tone: 'deep' },
-	{ src: '/collage/img-28.jpg', label: 'Moving', tint: '#00A896', tone: 'core' },
+	{ src: '/collage/img-04.jpg', label: 'Plumbing', tint: '#088395', tone: 'core', angle: 18, lane: 0 },
+	{ src: '/collage/img-05.jpg', label: 'Cleaning', tint: '#05BFDB', tone: 'warm', angle: 142, lane: 1 },
+	{ src: '/collage/img-25.jpg', label: 'Gardening', tint: '#00C9A7', tone: 'fresh', angle: 276, lane: 2 },
+	{ src: '/collage/img-17.jpg', label: 'Hairdressing', tint: '#FF8066', tone: 'warm', angle: 98, lane: 0 },
+	{ src: '/collage/img-26.jpg', label: 'Driving', tint: '#0081CF', tone: 'core', angle: 236, lane: 1 },
+	{ src: '/collage/img-22.jpg', label: 'Photography', tint: '#2F4B7C', tone: 'deep', angle: 58, lane: 2 },
+	{ src: '/collage/img-09.jpg', label: 'Mechanics', tint: '#45B7D1', tone: 'fresh', angle: 196, lane: 0 },
+	{ src: '/collage/img-14.jpg', label: 'Masonry', tint: '#FFB347', tone: 'warm', angle: 334, lane: 1 },
+	{ src: '/collage/img-18.jpg', label: 'Security', tint: '#7D4E9E', tone: 'deep', angle: 156, lane: 2 },
+	{ src: '/collage/carpentry-chair.jpeg', label: 'Carpentry', tint: '#00A896', tone: 'core', angle: 306, lane: 0 },
 ] as const;
 
 const categoryImageBySlug: Record<string, string> = {
-	electrical: '/collage/img-13.jpg',
+	electrical: '/collage/img-06.jpg',
 	plumbing: '/collage/img-04.jpg',
 	cleaning: '/collage/img-05.jpg',
-	carpentry: '/collage/img-14.jpg',
-	painting: '/collage/img-18.jpg',
+	carpentry: '/collage/carpentry-chair.jpeg',
+	painting: '/collage/img-12.jpg',
 	gardening: '/collage/img-25.jpg',
 	driving: '/collage/img-26.jpg',
-	tutoring: '/collage/img-11.jpg',
-	beauty: '/collage/img-17.jpg',
-	hairdressing: '/collage/img-07.jpg',
-	masonry: '/collage/img-06.jpg',
-	welding: '/collage/img-12.jpg',
-	mechanics: '/collage/img-15.jpg',
-	'appliance-repair': '/collage/img-16.jpg',
-	moving: '/collage/img-28.jpg',
-	catering: '/collage/img-10.jpg',
+	tutoring: '/collage/tutoring-classroom.jpeg',
+	beauty: '/collage/img-16.jpg',
+	hairdressing: '/collage/img-17.jpg',
+	masonry: '/collage/img-14.jpg',
+	welding: '/collage/img-18.jpg',
+	mechanics: '/collage/img-09.jpg',
+	'appliance-repair': '/collage/img-03.jpg',
+	moving: '/collage/img-24.jpg',
+	catering: '/collage/img-15.jpg',
 	photography: '/collage/img-22.jpg',
-	videography: '/collage/img-24.jpg',
-	laundry: '/collage/img-09.jpg',
-	security: '/collage/img-27.jpg',
-	'it-support': '/collage/img-19.jpg',
-	'event-planning': '/collage/img-20.jpg',
+	videography: '/collage/img-10.jpg',
+	laundry: '/collage/img-20.jpg',
+	security: '/collage/img-18.jpg',
+	'it-support': '/collage/img-21.jpg',
+	'event-planning': '/collage/img-02.jpg',
 	childcare: '/collage/img-23.jpg',
 };
 
@@ -119,6 +119,11 @@ const servicePanelFallbackImages = [
 ];
 
 export function HomeCollage() {
+	const orbitRadii = [112, 150, 186];
+	const orbitSizes = [64, 58, 62, 68];
+	const orbitDurations = [14, 19, 24];
+	const orbitTurns = ['360deg', '-360deg', '360deg'];
+
 	return (
 		<Card>
 			<div className="collage-head">
@@ -128,18 +133,34 @@ export function HomeCollage() {
 				</div>
 				<Link to="/categories" className="ui-btn-secondary">Browse Services</Link>
 			</div>
-			<div className="service-collage service-collage-layered">
+			<div className="service-globe-stage" role="img" aria-label="Animated globe showing services in action around the city">
+				<div className="service-orbit-ring service-orbit-ring-1" />
+				<div className="service-orbit-ring service-orbit-ring-2" />
+				<div className="service-orbit-ring service-orbit-ring-3" />
+
+				<div className="service-globe-earth">
+					<span className="service-globe-core-text">Batsirai</span>
+					<span className="service-globe-core-subtext">Local services</span>
+				</div>
+
 				{collageShots.map((shot, index) => (
+					// Spread services across three rings and keep each node moving at its ring speed.
 					<figure
 						key={shot.src}
-						className={`collage-tile collage-tile-${index + 1} collage-tone-${shot.tone}`}
+						className={`service-orbit-node collage-tone-${shot.tone}`}
 						style={{
 							['--tile-accent' as string]: shot.tint,
-							['--tile-rotate' as string]: `${((index % 5) - 2) * 1.6}deg`,
-							['--tile-depth' as string]: `${12 + (index % 4) * 4}px`,
+							['--orbit-angle' as string]: `${shot.angle}deg`,
+							['--orbit-radius' as string]: `${orbitRadii[shot.lane]}px`,
+							['--orbit-size' as string]: `${orbitSizes[index % orbitSizes.length]}px`,
+							['--orbit-duration' as string]: `${orbitDurations[shot.lane]}s`,
+							['--orbit-turn' as string]: orbitTurns[shot.lane],
+							['--orbit-delay' as string]: `${index * 0.18}s`,
 						}}
 					>
-						<img src={shot.src} alt={`${shot.label} service`} loading="lazy" />
+						<div className="service-orbit-node-media">
+							<img src={shot.src} alt={`${shot.label} service`} loading="lazy" />
+						</div>
 						<figcaption>{shot.label}</figcaption>
 					</figure>
 				))}

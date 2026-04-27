@@ -996,6 +996,287 @@ a {
   margin-bottom: 0.7rem;
 }
 
+.service-globe-stage {
+  position: relative;
+  min-height: 420px;
+  border-radius: 1rem;
+  overflow: hidden;
+  border: 1px solid rgba(16, 34, 48, 0.12);
+  background:
+    radial-gradient(520px 260px at 18% -12%, rgba(31, 113, 139, 0.24), transparent 64%),
+    radial-gradient(420px 220px at 90% 112%, rgba(242, 95, 92, 0.16), transparent 62%),
+    linear-gradient(145deg, rgba(247, 252, 255, 0.9), rgba(234, 245, 251, 0.82));
+}
+
+.service-globe-stage::before {
+  content: '';
+  position: absolute;
+  inset: 0.7rem;
+  border-radius: 0.8rem;
+  border: 1px dashed rgba(16, 34, 48, 0.16);
+  pointer-events: none;
+}
+
+.service-globe-earth {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 182px;
+  height: 182px;
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  display: grid;
+  place-items: center;
+  text-align: center;
+  color: #f4fcff;
+  border: 2px solid rgba(190, 238, 255, 0.7);
+  background:
+    radial-gradient(circle at 32% 22%, rgba(180, 246, 255, 0.38), transparent 44%),
+    radial-gradient(circle at 72% 74%, rgba(9, 62, 90, 0.5), transparent 54%),
+    linear-gradient(160deg, #2e95b3 0%, #15607d 54%, #0c3c59 100%);
+  box-shadow:
+    inset -24px -18px 28px rgba(6, 28, 46, 0.42),
+    inset 16px 14px 24px rgba(188, 239, 255, 0.2),
+    0 20px 38px rgba(10, 43, 66, 0.28);
+}
+
+.service-globe-earth::before {
+  content: '';
+  position: absolute;
+  inset: 15%;
+  border-radius: 50%;
+  opacity: 0.66;
+  background:
+    radial-gradient(circle at 32% 34%, rgba(174, 223, 129, 0.9) 0 22%, transparent 24%),
+    radial-gradient(circle at 62% 52%, rgba(146, 205, 109, 0.82) 0 20%, transparent 22%),
+    radial-gradient(circle at 56% 74%, rgba(151, 212, 111, 0.75) 0 16%, transparent 18%);
+  filter: blur(0.2px);
+}
+
+.service-globe-earth::after {
+  content: '';
+  position: absolute;
+  inset: -12%;
+  border-radius: 50%;
+  border: 1px solid rgba(170, 230, 255, 0.34);
+  box-shadow: 0 0 0 8px rgba(116, 196, 224, 0.08);
+  animation: globe-pulse 3.8s ease-in-out infinite;
+}
+
+.service-globe-core-text {
+  position: relative;
+  z-index: 1;
+  font-family: 'Sora', sans-serif;
+  font-size: 1.15rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+}
+
+.service-globe-core-subtext {
+  position: relative;
+  z-index: 1;
+  margin-top: -0.12rem;
+  font-size: 0.7rem;
+  opacity: 0.9;
+  text-transform: uppercase;
+  letter-spacing: 0.09em;
+}
+
+.service-orbit-ring {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  border-radius: 50%;
+  border: 1px dashed rgba(31, 113, 139, 0.2);
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+}
+
+.service-orbit-ring-1 {
+  width: 236px;
+  height: 236px;
+  animation: orbit-rotate 28s linear infinite;
+}
+
+.service-orbit-ring-2 {
+  width: 302px;
+  height: 302px;
+  border-color: rgba(232, 163, 61, 0.22);
+  animation: orbit-rotate-reverse 34s linear infinite;
+}
+
+.service-orbit-ring-3 {
+  width: 362px;
+  height: 362px;
+  border-color: rgba(242, 95, 92, 0.2);
+  animation: orbit-rotate 42s linear infinite;
+}
+
+.service-orbit-node {
+  --orbit-angle: 0deg;
+  --orbit-radius: 140px;
+  --orbit-size: 60px;
+  --orbit-duration: 24s;
+  --orbit-turn: 360deg;
+  --orbit-delay: 0s;
+  --tile-accent: #1f718b;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  margin: 0;
+  transform: translate(-50%, -50%) rotate(var(--orbit-angle)) translateX(var(--orbit-radius)) rotate(calc(-1 * var(--orbit-angle)));
+  width: var(--orbit-size);
+  display: grid;
+  justify-items: center;
+  gap: 0.3rem;
+  animation:
+    orbit-node-spin var(--orbit-duration) linear infinite,
+    orbit-node-float 4.4s ease-in-out infinite;
+  animation-delay: 0s, var(--orbit-delay);
+  z-index: 3;
+}
+
+.service-orbit-node-media {
+  width: var(--orbit-size);
+  height: var(--orbit-size);
+  border-radius: 50%;
+  overflow: hidden;
+  border: 2px solid color-mix(in srgb, var(--tile-accent) 50%, white 50%);
+  box-shadow:
+    0 10px 18px rgba(16, 34, 48, 0.24),
+    0 0 0 4px color-mix(in srgb, var(--tile-accent) 20%, rgba(255, 255, 255, 0.8) 80%);
+  background: #ffffff;
+}
+
+.service-orbit-node img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.service-orbit-node figcaption {
+  font-size: 0.62rem;
+  font-weight: 700;
+  line-height: 1.2;
+  color: #12344a;
+  text-align: center;
+  white-space: nowrap;
+  padding: 0.14rem 0.34rem;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.8);
+  border: 1px solid rgba(16, 34, 48, 0.12);
+  box-shadow: 0 3px 8px rgba(16, 34, 48, 0.08);
+  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.7);
+}
+
+@keyframes orbit-node-float {
+  0%,
+  100% {
+    margin-top: 0;
+  }
+
+  50% {
+    margin-top: -7px;
+  }
+}
+
+@keyframes orbit-node-spin {
+  from {
+    transform:
+      translate(-50%, -50%)
+      rotate(var(--orbit-angle))
+      translateX(var(--orbit-radius))
+      rotate(calc(-1 * var(--orbit-angle)));
+  }
+
+  to {
+    transform:
+      translate(-50%, -50%)
+      rotate(calc(var(--orbit-angle) + var(--orbit-turn)))
+      translateX(var(--orbit-radius))
+      rotate(calc(-1 * (var(--orbit-angle) + var(--orbit-turn))));
+  }
+}
+
+@keyframes orbit-rotate {
+  from {
+    transform: translate(-50%, -50%) rotate(0deg);
+  }
+
+  to {
+    transform: translate(-50%, -50%) rotate(360deg);
+  }
+}
+
+@keyframes orbit-rotate-reverse {
+  from {
+    transform: translate(-50%, -50%) rotate(360deg);
+  }
+
+  to {
+    transform: translate(-50%, -50%) rotate(0deg);
+  }
+}
+
+@keyframes globe-pulse {
+  0%,
+  100% {
+    transform: scale(1);
+    opacity: 0.85;
+  }
+
+  50% {
+    transform: scale(1.03);
+    opacity: 0.5;
+  }
+}
+
+@media (max-width: 960px) {
+  .service-globe-stage {
+    min-height: 360px;
+  }
+
+  .service-globe-earth {
+    width: 154px;
+    height: 154px;
+  }
+
+  .service-orbit-ring-1 {
+    width: 208px;
+    height: 208px;
+  }
+
+  .service-orbit-ring-2 {
+    width: 262px;
+    height: 262px;
+  }
+
+  .service-orbit-ring-3 {
+    width: 314px;
+    height: 314px;
+  }
+
+  .service-orbit-node {
+    --orbit-radius: calc(var(--orbit-radius) * 0.8);
+    --orbit-size: calc(var(--orbit-size) * 0.88);
+  }
+
+  .service-orbit-node figcaption {
+    font-size: 0.58rem;
+  }
+}
+
+@media (max-width: 620px) {
+  .service-globe-stage {
+    min-height: 332px;
+  }
+
+  .service-orbit-node:nth-of-type(odd) figcaption {
+    display: none;
+  }
+}
+
 .service-collage {
   display: grid;
   grid-template-columns: repeat(6, minmax(0, 1fr));
